@@ -15,6 +15,13 @@ CREATE TABLE birthplaces(
     zipcode VARCHAR(4) NOT NULL
 );
 
+CREATE TABLE csalad(
+    csaladID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    csaladnev text NOT NULL
+)
+
+
+
 CREATE TABLE person(
     personID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	name text NOT NULL,
