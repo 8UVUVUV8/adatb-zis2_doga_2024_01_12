@@ -18,14 +18,20 @@ CREATE TABLE birthplaces(
 CREATE TABLE csalad(
     csaladID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     csaladnev text NOT NULL
-)
+);
 
 
+CREATE TABLE status(
+    statusID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    status text NOT NULL
+);
 
 CREATE TABLE person(
     personID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	name text NOT NULL,
+    csaladID int,
     genderID int DEFAULT 3,
+    statusID int NOT NULL, 
     birthdate date NOT NULL,
     birth_placeID int NOT NULL DEFAULT 1,
     mothersname text,
@@ -33,8 +39,25 @@ CREATE TABLE person(
 	possibleplaceofdeath_placeID int DEFAULT NULL,
     possibletimeofdeath date DEFAULT NULL,
     constraint gendertablecon foreign key(genderID) REFERENCES gender(genderID) ON delete restrict,
-    constraint birthplacestablecon foreign key(birth_placeID) REFERENCES birthplaces(placeID) ON delete restrict
+    constraint birthplacestablecon foreign key(birth_placeID) REFERENCES birthplaces(placeID) ON delete restrict,
+    constraint csaladtablecon foreign key(csaladID) REFERENCES csalad(csaladID) ON delete restrict,
+    constraint statustablecon foreign key(statusID) REFERENCES status(statusID) ON delete restrict,
 );
+
+INSERT INTO status(status)
+VALUES ("Gyerek");
+
+INSERT INTO status(status)
+VALUES ("Apa");
+
+INSERT INTO status(status)
+VALUES ("Anya");
+
+INSERT INTO status(status)
+VALUES ("Mama");
+
+INSERT INTO status(status)
+VALUES ("Papa");
 
 INSERT INTO gender(gender)
 VALUES ("Férfi");
