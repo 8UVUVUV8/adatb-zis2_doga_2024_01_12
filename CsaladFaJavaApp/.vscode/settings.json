@@ -1,0 +1,8 @@
+{
+    "java.project.sourcePaths": ["src"],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\diak\\Desktop\\Akormanyköltsegvetese\\adatb-zis2_doga_2024_01_12\\mariadb-java-client-3.3.2.jar"
+    ]
+}

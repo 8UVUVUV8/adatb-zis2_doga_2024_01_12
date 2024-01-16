@@ -31,7 +31,7 @@ CREATE TABLE person(
 	name text NOT NULL,
     csaladID int,
     genderID int DEFAULT 3,
-    statusID int NOT NULL, 
+    statusID int DEFAULT 1, 
     birthdate date NOT NULL,
     birth_placeID int NOT NULL DEFAULT 1,
     mothersname text,
@@ -41,7 +41,7 @@ CREATE TABLE person(
     constraint gendertablecon foreign key(genderID) REFERENCES gender(genderID) ON delete restrict,
     constraint birthplacestablecon foreign key(birth_placeID) REFERENCES birthplaces(placeID) ON delete restrict,
     constraint csaladtablecon foreign key(csaladID) REFERENCES csalad(csaladID) ON delete restrict,
-    constraint statustablecon foreign key(statusID) REFERENCES status(statusID) ON delete restrict,
+    constraint statustablecon foreign key(statusID) REFERENCES status(statusID) ON delete restrict
 );
 
 INSERT INTO status(status)
@@ -80,7 +80,13 @@ VALUES ("Budapest06", 1064);
 INSERT INTO birthplaces(placename, zipcode)
 VALUES ("Hatvan", 3000);
 
-INSERT INTO person(name, genderID, birthdate, birth_placeID, mothersname, fathersname) VALUES ("Nagy János", 3, 2001-09-28, 2, "Nagy Jánosné", "Nagy János");
+INSERT INTO csalad(csaladnev)
+VALUES ("Kiss");
+
+INSERT INTO csalad(csaladnev)
+VALUES ("Nagy");
+
+INSERT INTO person(name, csaladID, genderID, birthdate, birth_placeID, mothersname, fathersname) VALUES ("Nagy János", 2, 3, 2001-09-28, 2, "Nagy Jánosné", "Nagy János");
 
 
 CREATE USER 'javaApp'@'%' IDENTIFIED BY 'java123';
@@ -91,6 +97,7 @@ FLUSH PRIVILEGES;
 DElIMITER $$
 create procedure add_person_procedure(
     IN name_p text,
+    IN csaladID_p int,
     IN genderID_p int, 
     IN birthdate_p DATE, 
     IN birth_placeID_p int, 
@@ -100,7 +107,7 @@ create procedure add_person_procedure(
     IN possibletimeofdeath_p DATE
     )
 BEGIN
-	INSERT INTO person(name, genderID, birthdate, birth_placeID, mothersname, fathersname, possibleplaceofdeath_placeID, possibletimeofdeath)
-	VALUES (name_p, genderID_p, birthdate_p, birth_placeID_p, mothersname_p, fathersname_p, possibleplaceofdeath_placeID_p, possibletimeofdeath_p);
+	INSERT INTO person(name, csaladID, genderID, birthdate, birth_placeID, mothersname, fathersname, possibleplaceofdeath_placeID, possibletimeofdeath)
+	VALUES (name_p, csaladID_p, genderID_p, birthdate_p, birth_placeID_p, mothersname_p, fathersname_p, possibleplaceofdeath_placeID_p, possibletimeofdeath_p);
 END $$
 DELIMITER ;
