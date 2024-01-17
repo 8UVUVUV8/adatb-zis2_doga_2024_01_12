@@ -7,12 +7,6 @@ import java.sql.SQLException;
 
 public class App {
     public static void main(String[] args) throws Exception {
-
-        TalkToDB DB = new TalkToDB();
-        Connection conn = new DBconnector().DBconn();
-        ArrayList<Person> personList = DB.getPersones(conn);
-
-        System.out.println(personList.get(0).name);
-
+        new controler().mainControler();
     }
 }

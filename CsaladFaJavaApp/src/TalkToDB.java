@@ -42,5 +42,31 @@ public class TalkToDB {
         return personList;
     }
 
+
+    public void addPersone(Connection conn, Person newPerson){
+        try {
+            tryAddPersone(conn, newPerson);
+        } catch (SQLException e) {
+            System.err.println("adat bázis put müvelet sikertelen");
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public void tryAddPersone(Connection conn, Person newPerson) throws SQLException{
+        String sql = 
+        "CALL add_person_procedure('"
+        +newPerson.name+"',"
+        +newPerson.csaladID+","
+        +newPerson.genderID+",'"
+        +newPerson.birthdate+"',"
+        +newPerson.birth_placeID+",'"
+        +newPerson.mothersname+"','"
+        +newPerson.fathersname+"',"
+        +newPerson.possibleplaceofdeath_placeID+",'"
+        +newPerson.possibletimeofdeath+"');";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        System.out.println(rs);
+    }
     
 }
