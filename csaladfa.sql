@@ -111,3 +111,11 @@ BEGIN
 	VALUES (name_p, csaladID_p, genderID_p, birthdate_p, birth_placeID_p, mothersname_p, fathersname_p, possibleplaceofdeath_placeID_p, possibletimeofdeath_p);
 END $$
 DELIMITER ;
+
+
+DElIMITER $$
+create procedure get_person_procedure()
+BEGIN
+	SELECT * FROM person;
+END $$
+DELIMITER ;
