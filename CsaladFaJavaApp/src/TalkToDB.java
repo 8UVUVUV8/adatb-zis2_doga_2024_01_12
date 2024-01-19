@@ -38,35 +38,147 @@ public class TalkToDB {
                 );
                 personList.add(person);
             }
-
+            //System.out.println("person siker");
         return personList;
     }
 
-
-    public void addPersone(Connection conn, Person newPerson){
+    
+    public ArrayList getFamilys(Connection conn){
         try {
-            tryAddPersone(conn, newPerson);
+            return tryGetFamilys(conn);
         } catch (SQLException e) {
-            System.err.println("adat bázis put müvelet sikertelen");
+            System.out.println("Nem sikerült az sql parancsot végre hajtani hogy lekérjük a családokat!");
             System.err.println(e.getMessage());
+            return null;
         }
     }
 
-    public void tryAddPersone(Connection conn, Person newPerson) throws SQLException{
-        String sql = 
-        "CALL add_person_procedure('"
-        +newPerson.name+"',"
-        +newPerson.csaladID+","
-        +newPerson.genderID+",'"
-        +newPerson.birthdate+"',"
-        +newPerson.birth_placeID+",'"
-        +newPerson.mothersname+"','"
-        +newPerson.fathersname+"',"
-        +newPerson.possibleplaceofdeath_placeID+",'"
-        +newPerson.possibletimeofdeath+"');";
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
-        System.out.println(rs);
+    public ArrayList tryGetFamilys(Connection conn) throws SQLException{
+        ArrayList<Family> familyList = new ArrayList<>();
+
+        String sql = "CALL `get_family_procedure`();";        
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()) {
+                Family family = new Family(
+                    rs.getInt("csaladID"),
+                    rs.getString("csaladnev")
+                );
+                familyList.add(family);
+            }
+            //System.out.println("family siker");
+        return familyList;
     }
+
+    public ArrayList getGender(Connection conn){
+        try {
+            return tryGetGender(conn);
+        } catch (SQLException e) {
+            System.out.println("Nem sikerült az sql parancsot végre hajtani hogy lekérjük a gendert!");
+            System.err.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public ArrayList tryGetGender(Connection conn) throws SQLException{
+        ArrayList<Gender> GenderList = new ArrayList<>();
+
+        String sql = "CALL `get_gender_procedure`();";        
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()) {
+                Gender gender = new Gender(
+                    rs.getInt("genderID"),
+                    rs.getString("gender")
+                );
+                GenderList.add(gender);
+            }
+            //System.out.println("gender siker");
+        return GenderList;
+    }
+    
+    public ArrayList getStatus(Connection conn){
+        try {
+            return tryGetStatus(conn);
+        } catch (SQLException e) {
+            System.out.println("Nem sikerült az sql parancsot végre hajtani hogy lekérjük a statust!");
+            System.err.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public ArrayList tryGetStatus(Connection conn) throws SQLException{
+        ArrayList<Status> statusList = new ArrayList<>();
+
+        String sql = "CALL `get_status_procedure`();";        
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()) {
+                Status status = new Status(
+                    rs.getInt("statusID"),
+                    rs.getString("status")
+                );
+                statusList.add(status);
+            }
+            //System.out.println("status siker");
+        return statusList;
+    }
+
+        
+    public ArrayList getPlace(Connection conn){
+        try {
+            return tryGetPlace(conn);
+        } catch (SQLException e) {
+            System.out.println("Nem sikerült az sql parancsot végre hajtani hogy lekérjük a place!");
+            System.err.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public ArrayList tryGetPlace(Connection conn) throws SQLException{
+        ArrayList<Place> placeList = new ArrayList<>();
+
+        String sql = "CALL `get_places_procedure`();";        
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()) {
+                Place place = new Place(
+                    rs.getInt("placeID"),
+                    rs.getString("placename"),
+                    rs.getString("zipcode")
+                );
+                placeList.add(place);
+            }
+            //System.out.println("place siker");
+        return placeList;
+    }
+
+
+
+    // public void addPersone(Connection conn, Person newPerson){
+    //     try {
+    //         tryAddPersone(conn, newPerson);
+    //     } catch (SQLException e) {
+    //         System.err.println("adat bázis put müvelet sikertelen");
+    //         System.err.println(e.getMessage());
+    //     }
+    // }
+
+    // public void tryAddPersone(Connection conn, Person newPerson) throws SQLException{
+    //     String sql = 
+    //     "CALL add_person_procedure('"
+    //     +newPerson.name+"',"
+    //     +newPerson.csaladID+","
+    //     +newPerson.genderID+",'"
+    //     +newPerson.birthdate+"',"
+    //     +newPerson.birth_placeID+",'"
+    //     +newPerson.mothersname+"','"
+    //     +newPerson.fathersname+"',"
+    //     +newPerson.possibleplaceofdeath_placeID+",'"
+    //     +newPerson.possibletimeofdeath+"');";
+    //     Statement stmt = conn.createStatement();
+    //     ResultSet rs = stmt.executeQuery(sql);
+    //     System.out.println(rs);
+    // }
     
 }

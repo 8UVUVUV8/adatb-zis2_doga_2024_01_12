@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class View {
 
@@ -8,6 +9,20 @@ public class View {
     String input;
 
     public View(){
+    }
+
+    public void showPersones(ArrayList<Person> personlist, ArrayList<Family> familiyList, ArrayList<Gender> genderList, ArrayList<Status> statusList, ArrayList<Place> placeList){
+        for (Person person : personlist) {
+            System.out.print("név: "+person.name+"| ");
+            System.out.print("család: "+familiyList.get(person.csaladID-1).familyName+"| ");
+            System.out.print("gender: "+genderList.get(person.genderID-1).gender+"| ");
+            System.out.print("státusz: "+statusList.get(person.statusID-1).status+"| ");
+            System.out.print("Születési idö: "+person.birthdate+"| ");
+            System.out.print("Születési hely: "+placeList.get(person.birth_placeID).placename+"| ");
+            System.out.print("Anyja neve: "+person.mothersname+"| ");
+            System.out.print("Apja neve: "+person.fathersname+"| ");
+            System.out.println("");
+        }
     }
 
     public Integer homeMassage(){

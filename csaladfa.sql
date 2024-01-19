@@ -9,7 +9,7 @@ CREATE TABLE gender(
     gender text NOT NULL
 );
 
-CREATE TABLE birthplaces(
+CREATE TABLE places(
 	placeID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     placename text NOT NULL,
     zipcode VARCHAR(4) NOT NULL
@@ -39,9 +39,10 @@ CREATE TABLE person(
 	possibleplaceofdeath_placeID int DEFAULT NULL,
     possibletimeofdeath date DEFAULT NULL,
     constraint gendertablecon foreign key(genderID) REFERENCES gender(genderID) ON delete restrict,
-    constraint birthplacestablecon foreign key(birth_placeID) REFERENCES birthplaces(placeID) ON delete restrict,
+    constraint birthplacestablecon foreign key(birth_placeID) REFERENCES places(placeID) ON delete restrict,
     constraint csaladtablecon foreign key(csaladID) REFERENCES csalad(csaladID) ON delete restrict,
-    constraint statustablecon foreign key(statusID) REFERENCES status(statusID) ON delete restrict
+    constraint statustablecon foreign key(statusID) REFERENCES status(statusID) ON delete restrict,
+    constraint possibleplaceofdeathtablecon foreign key(possibleplaceofdeath_placeID) REFERENCES places(placeID)
 );
 
 INSERT INTO status(status)
@@ -68,16 +69,16 @@ VALUES ("Nö");
 INSERT INTO gender(gender)
 VALUES ("Egyéb");
 
-INSERT INTO birthplaces(placename, zipcode)
+INSERT INTO places(placename, zipcode)
 VALUES ("Ismeretlen", 0000);
 
-INSERT INTO birthplaces(placename, zipcode)
+INSERT INTO places(placename, zipcode)
 VALUES ("Budapest08", 1086);
 
-INSERT INTO birthplaces(placename, zipcode)
+INSERT INTO places(placename, zipcode)
 VALUES ("Budapest06", 1064);
 
-INSERT INTO birthplaces(placename, zipcode)
+INSERT INTO places(placename, zipcode)
 VALUES ("Hatvan", 3000);
 
 INSERT INTO csalad(csaladnev)
@@ -86,7 +87,11 @@ VALUES ("Kiss");
 INSERT INTO csalad(csaladnev)
 VALUES ("Nagy");
 
-INSERT INTO person(name, csaladID, genderID, birthdate, birth_placeID, mothersname, fathersname) VALUES ("Nagy János", 2, 3, 2001-09-28, 2, "Nagy Jánosné", "Nagy János");
+INSERT INTO person(name, csaladID, genderID, statusID, birthdate, birth_placeID, mothersname, fathersname, possibleplaceofdeath_placeID)
+VALUES (   "Nagy János",    2,        3,        1,     '2001-09-28',     2,      "Nagy Jánosné", "Nagy János",          1);
+
+INSERT INTO person(name, csaladID, genderID, statusID, birthdate, birth_placeID, mothersname, fathersname, possibleplaceofdeath_placeID)
+VALUES (   "Kiss Ákos",    1,        1,        1,     '2001-09-29',     3,      "Kiss Áronné", "Kiss Áron",          1);
 
 
 CREATE USER 'javaApp'@'%' IDENTIFIED BY 'java123';
@@ -117,5 +122,33 @@ DElIMITER $$
 create procedure get_person_procedure()
 BEGIN
 	SELECT * FROM person;
+END $$
+DELIMITER ;
+
+DElIMITER $$
+create procedure get_family_procedure()
+BEGIN
+	SELECT * FROM csalad;
+END $$
+DELIMITER ;
+
+DElIMITER $$
+create procedure get_gender_procedure()
+BEGIN
+	SELECT * FROM gender;
+END $$
+DELIMITER ;
+
+DElIMITER $$
+create procedure get_status_procedure()
+BEGIN
+	SELECT * FROM status;
+END $$
+DELIMITER ;
+
+DElIMITER $$
+create procedure get_places_procedure()
+BEGIN
+	SELECT * FROM places;
 END $$
 DELIMITER ;
