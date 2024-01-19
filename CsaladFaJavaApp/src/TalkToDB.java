@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class TalkToDB {
 
-    public ArrayList getPersones(Connection conn){
+    public ArrayList<Person> getPersones(Connection conn){
         try {
             return tryGetPersones(conn);
         } catch (SQLException e) {
@@ -16,7 +16,7 @@ public class TalkToDB {
         }
     }
 
-    public ArrayList tryGetPersones(Connection conn) throws SQLException{
+    public ArrayList<Person> tryGetPersones(Connection conn) throws SQLException{
         ArrayList<Person> personList = new ArrayList<>();
 
         String sql = "CALL `get_person_procedure`();";        
@@ -43,7 +43,7 @@ public class TalkToDB {
     }
 
     
-    public ArrayList getFamilys(Connection conn){
+    public ArrayList<Family> getFamilys(Connection conn){
         try {
             return tryGetFamilys(conn);
         } catch (SQLException e) {
@@ -53,7 +53,7 @@ public class TalkToDB {
         }
     }
 
-    public ArrayList tryGetFamilys(Connection conn) throws SQLException{
+    public ArrayList<Family> tryGetFamilys(Connection conn) throws SQLException{
         ArrayList<Family> familyList = new ArrayList<>();
 
         String sql = "CALL `get_family_procedure`();";        
@@ -70,7 +70,7 @@ public class TalkToDB {
         return familyList;
     }
 
-    public ArrayList getGender(Connection conn){
+    public ArrayList<Gender> getGender(Connection conn){
         try {
             return tryGetGender(conn);
         } catch (SQLException e) {
@@ -80,7 +80,7 @@ public class TalkToDB {
         }
     }
 
-    public ArrayList tryGetGender(Connection conn) throws SQLException{
+    public ArrayList<Gender> tryGetGender(Connection conn) throws SQLException{
         ArrayList<Gender> GenderList = new ArrayList<>();
 
         String sql = "CALL `get_gender_procedure`();";        
@@ -97,7 +97,7 @@ public class TalkToDB {
         return GenderList;
     }
     
-    public ArrayList getStatus(Connection conn){
+    public ArrayList<Status> getStatus(Connection conn){
         try {
             return tryGetStatus(conn);
         } catch (SQLException e) {
@@ -107,7 +107,7 @@ public class TalkToDB {
         }
     }
 
-    public ArrayList tryGetStatus(Connection conn) throws SQLException{
+    public ArrayList<Status> tryGetStatus(Connection conn) throws SQLException{
         ArrayList<Status> statusList = new ArrayList<>();
 
         String sql = "CALL `get_status_procedure`();";        
@@ -125,7 +125,7 @@ public class TalkToDB {
     }
 
         
-    public ArrayList getPlace(Connection conn){
+    public ArrayList<Place> getPlace(Connection conn){
         try {
             return tryGetPlace(conn);
         } catch (SQLException e) {
@@ -135,7 +135,7 @@ public class TalkToDB {
         }
     }
 
-    public ArrayList tryGetPlace(Connection conn) throws SQLException{
+    public ArrayList<Place> tryGetPlace(Connection conn) throws SQLException{
         ArrayList<Place> placeList = new ArrayList<>();
 
         String sql = "CALL `get_places_procedure`();";        
